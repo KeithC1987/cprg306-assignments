@@ -11,6 +11,8 @@ export default function Home() {
       <h1 className="text-2xl">CPRG 306 Web Development 2 - Assignments</h1>
       <ul>
         <li><Link className={LinkStyle} href="./week-2">week-2</Link></li>
+        <li><Link className={LinkStyle} href="./week-3">week-3</Link></li>
+        <li><Link className={LinkStyle} href="./week-4">week-4</Link></li>
       </ul>
     </main>
   );
