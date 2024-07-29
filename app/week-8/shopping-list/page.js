@@ -14,21 +14,30 @@ import { useRouter } from "next/navigation";
 
 export default function Page(){
 
-    const { user } = useUserAuth();
+    const { user, loading } = useUserAuth();
     const router = useRouter();
     const [items, setItems] = useState(itemsData);
     const [selectedItemName, setSelectedItemName] = useState("");
     const [ingredient, setIngredient] = useState("");
   
     useEffect(() => {
-      if (!user) {
-        router.push("./week-8"); // Redirect to login page if user is not logged in
+      if (!loading) {
+        if (!user) {
+            router.push("/week-8"); // Redirect to login page if user is not logged in
+        } else {
+            loadItems();
+        }
       }
-    }, [user, router]);
-  
-    if (!user) {
-      return <div className="bg-slate-950 text-white p-4">Redirecting to login...</div>;
-    }
+    }, [user, loading, router]);
+
+    const loadItems = async () => {
+      try {
+          const userItems = await getItems(user.uid);
+          setItems(userItems);
+      } catch (error) {
+          console.error("Error loading items: ", error);
+      }
+    };
 
 
 
